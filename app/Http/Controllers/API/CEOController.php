@@ -10,14 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class CEOController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $ceos = CEO::all();
+
         return response([ 'ceos' => CEOResource::collection($ceos), 'message' => 'Retrieved successfully'], 200);
     }
 
@@ -45,7 +42,7 @@ class CEOController extends Controller
 
         $ceo = CEO::create($data);
 
-        return response([ 'ceo' => new CEOResource($ceo), 'message' => 'Created successfully'], 200);
+        return response([ 'ceo' => new CEOResource($ceo), 'message' => 'Created successfully'], 201);
     }
 
     /**
@@ -72,7 +69,7 @@ class CEOController extends Controller
 
         $ceo->update($request->all());
 
-        return response([ 'ceo' => new CEOResource($ceo), 'message' => 'Retrieved successfully'], 200);
+        return response([ 'ceo' => new CEOResource($ceo), 'message' => 'Updated successfully'], 200);
     }
 
     /**
@@ -82,10 +79,12 @@ class CEOController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
+
+
     public function destroy(CEO $ceo)
     {
         $ceo->delete();
 
-        return response(['message' => 'Deleted']);
+        return response(['message' => 'Deleted'], 204);
     }
 }
